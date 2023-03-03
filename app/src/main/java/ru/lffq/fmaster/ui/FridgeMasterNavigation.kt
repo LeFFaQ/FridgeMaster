@@ -7,8 +7,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import ru.lffq.fmaster.feature_inventory.ui.Inventory
 import ru.lffq.fmaster.ui.feed.Feed
-import ru.lffq.fmaster.ui.inventory.Inventory
 import ru.lffq.fmaster.ui.profile.Profile
 import ru.lffq.fmaster.ui.search.Search
 
