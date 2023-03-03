@@ -3,6 +3,7 @@ package ru.lffq.fmaster.feature_inventory.ui
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -41,7 +42,7 @@ fun ItemsList() {
 
 
 @Composable
-fun InventoryCard(entity: InventoryEntity, selected: Boolean) {
+fun InventoryCard(entity: InventoryEntity, onClick: (entity: InventoryEntity) -> Unit) {
     val painter = rememberAsyncImagePainter(
         model = ImageRequest.Builder(LocalContext.current)
             .data(entity.thumbnailUrl)
@@ -53,6 +54,7 @@ fun InventoryCard(entity: InventoryEntity, selected: Boolean) {
         Modifier
             .padding(16.dp)
             .animateContentSize()
+            .clickable { onClick(entity) }
     ) {
         Row {
             Image(painter = painter, contentDescription = "food image")
@@ -77,7 +79,9 @@ fun InventoryTopBar(
         },
         actions = {
             when (layout) {
-                is InventoryLayout.DetailsLayout -> Icon(Icons.Default.Delete, contentDescription = "Delete entity")
+                is InventoryLayout.DetailsLayout -> IconButton(onClick = layout.onDeleteEntity) {
+                    Icon(Icons.Default.Delete, contentDescription = "Delete entity")
+                }
                 else -> Unit
             }
         },

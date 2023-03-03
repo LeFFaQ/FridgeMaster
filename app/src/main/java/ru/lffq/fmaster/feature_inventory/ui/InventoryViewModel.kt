@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import ru.lffq.fmaster.feature_inventory.data.InventoryEntity
@@ -24,13 +23,14 @@ class InventoryViewModel @Inject constructor(
     private val _entities: MutableStateFlow<List<InventoryEntity>> = MutableStateFlow(emptyList())
     val entities = _entities.asStateFlow()
 
-    private val _selectedEntity: MutableStateFlow<InventoryEntity?> = MutableStateFlow(null)
-    val selectedEntity: StateFlow<InventoryEntity?> = _selectedEntity.asStateFlow()
-
     private val _layout: MutableState<InventoryLayout> = mutableStateOf(InventoryLayout.MainLayout)
     val currentLayout: State<InventoryLayout> = _layout
 
-    fun getInventoryEntities() {
+    init {
+        getInventoryEntities()
+    }
+
+    private fun getInventoryEntities() {
         viewModelScope.launch {
             useCase.getInventory().collect {
                 _entities.value = it
@@ -49,6 +49,7 @@ class InventoryViewModel @Inject constructor(
             is InventoryEvent.OnEntityAdded -> {
                 viewModelScope.launch {
                     useCase.insertEntity(event.entity)
+                    onEvent(InventoryEvent.OnCloseButtonClicked)
                 }
             }
 
@@ -56,13 +57,14 @@ class InventoryViewModel @Inject constructor(
                 _layout.value = InventoryLayout.DetailsLayout(
                     entity = event.entity,
                     onCloseLayout = { onEvent(InventoryEvent.OnCloseButtonClicked) },
-                    onDeleteEntity = { InventoryEvent.OnEntityDeleteClick(event.entity) },
+                    onDeleteEntity = { onEvent(InventoryEvent.OnEntityDeleteClick(event.entity)) },
                 )
             }
             is InventoryEvent.OnEntityDeleteClick -> {
                 viewModelScope.launch {
                     useCase.deleteEntity(event.entity)
                 }
+                onEvent(InventoryEvent.OnCloseButtonClicked)
             }
             InventoryEvent.OnCloseButtonClicked -> {
                 _layout.value = InventoryLayout.MainLayout
