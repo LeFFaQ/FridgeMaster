@@ -1,4 +1,4 @@
-package ru.lffq.fmaster.feature_rskrf.data.remote.dto
+package ru.lffq.fmaster.feature_rskrf.data.remote.dto.products
 
 
 import com.google.gson.annotations.SerializedName

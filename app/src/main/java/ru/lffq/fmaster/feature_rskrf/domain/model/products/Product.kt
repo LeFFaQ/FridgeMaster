@@ -1,7 +1,7 @@
-package ru.lffq.fmaster.feature_rskrf.domain.model
+package ru.lffq.fmaster.feature_rskrf.domain.model.products
 
 import com.google.gson.annotations.SerializedName
-import ru.lffq.fmaster.feature_rskrf.data.remote.dto.ProductModel
+import ru.lffq.fmaster.feature_rskrf.data.remote.dto.products.ProductModel
 
 //i don't care
 

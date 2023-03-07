@@ -1,6 +1,6 @@
-package ru.lffq.fmaster.feature_rskrf.domain.model
+package ru.lffq.fmaster.feature_rskrf.domain.model.products
 
-import ru.lffq.fmaster.feature_rskrf.data.remote.dto.ProductsModel
+import ru.lffq.fmaster.feature_rskrf.data.remote.dto.products.ProductsModel
 
 data class Products(
     val products: List<Product>

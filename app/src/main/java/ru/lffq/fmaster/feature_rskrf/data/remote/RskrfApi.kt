@@ -4,6 +4,8 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 import ru.lffq.fmaster.feature_rskrf.data.remote.dto.*
+import ru.lffq.fmaster.feature_rskrf.data.remote.dto.news.TipsModel
+import ru.lffq.fmaster.feature_rskrf.data.remote.dto.products.*
 
 interface RskrfApi {
 
@@ -70,4 +72,31 @@ interface RskrfApi {
         @Query("query") query: String,
         @Query("page") page: Int
     ): QueryModel
+
+
+    /**
+     * Получить список советов.
+     *
+     * [Подробнее](https://rskrf.ru/about/dev/)
+     */
+    @GET("/rest/1/article/tips/")
+    suspend fun getTips(): TipsModel
+    /**
+     * Получить список новостей.
+     *
+     * [Подробнее](https://rskrf.ru/about/dev/)
+     */
+    @GET("/rest/1/article/news/")
+    suspend fun getNews()
+
+    /**
+     * Получить конкретную новость/совет. (универсально).
+     *
+     * [Подробнее](https://rskrf.ru/about/dev/)
+     * @param id ID новости/совета
+     */
+    @GET("/rest/1/article/{id}/")
+    suspend fun getDetails(
+        @Path("id") id: Int,
+    )
 }

@@ -92,10 +92,10 @@ fun AddLayout(onAddClick: (entity: InventoryEntity) -> Unit) {
 
     Layout(modifier = Modifier.padding(16.dp)) {
         Column() {
-            TextField(value = title, onValueChange = { title = it })
-            TextField(value = category, onValueChange = { category = it })
-            TextField(value = manufacturer, onValueChange = { manufacturer = it })
-            TextField(value = amount, onValueChange = { amount = it })
+            TextField(value = title, onValueChange = { title = it }, label = { Text(text = "Title") })
+            TextField(value = category, onValueChange = { category = it }, label = { Text(text = "category") })
+            TextField(value = manufacturer, onValueChange = { manufacturer = it }, label = { Text(text = "manufacturer") })
+            TextField(value = amount, onValueChange = { amount = it }, label = { Text(text = "amount") })
             Button(onClick = {
                 onAddClick(
                     InventoryEntity(
