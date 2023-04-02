@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import ru.lffq.fmaster.feature_inventory.data.InventoryEntity
 import ru.lffq.fmaster.feature_inventory.domain.InventoryUseCases
+import ru.lffq.fmaster.ui.components.ClosableLayout
 import javax.inject.Inject
 
 
@@ -25,7 +26,6 @@ class InventoryViewModel @Inject constructor(
 
     private val _layout: MutableState<InventoryLayout> = mutableStateOf(InventoryLayout.MainLayout)
     val currentLayout: State<InventoryLayout> = _layout
-
     init {
         getInventoryEntities()
     }
@@ -96,8 +96,4 @@ sealed class InventoryLayout(val title: String) {
     data class AddLayout(val onCloseLayout: () -> Unit) : InventoryLayout("Add"), ClosableLayout {
         override fun close() = onCloseLayout()
     }
-}
-
-interface ClosableLayout {
-    fun close()
 }

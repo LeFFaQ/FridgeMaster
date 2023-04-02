@@ -19,6 +19,7 @@ import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import coil.size.Size
 import ru.lffq.fmaster.feature_inventory.data.InventoryEntity
+import ru.lffq.fmaster.ui.components.ClosableLayout
 
 @Composable
 fun Layout(modifier: Modifier, content: @Composable BoxScope.() -> Unit) {
