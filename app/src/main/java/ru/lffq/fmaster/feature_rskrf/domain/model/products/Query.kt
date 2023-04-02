@@ -1,6 +1,7 @@
 package ru.lffq.fmaster.feature_rskrf.domain.model.products
 
 import ru.lffq.fmaster.feature_rskrf.data.remote.dto.products.QueryModel
+import ru.lffq.fmaster.feature_rskrf.domain.model.CriteriaRating
 
 data class Query(
     val response: List<Product>,

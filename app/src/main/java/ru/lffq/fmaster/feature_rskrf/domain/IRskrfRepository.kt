@@ -2,10 +2,10 @@ package ru.lffq.fmaster.feature_rskrf.domain
 
 import ru.lffq.fmaster.common.Resource
 import ru.lffq.fmaster.feature_rskrf.data.remote.etc.AllowedCategories
+import ru.lffq.fmaster.feature_rskrf.domain.model.news.Article
 import ru.lffq.fmaster.feature_rskrf.domain.model.news.Details
-import ru.lffq.fmaster.feature_rskrf.domain.model.news.News
-import ru.lffq.fmaster.feature_rskrf.domain.model.news.Tips
 import ru.lffq.fmaster.feature_rskrf.domain.model.products.*
+
 
 interface IRskrfRepository {
 
@@ -19,9 +19,9 @@ interface IRskrfRepository {
 
     suspend fun queryByProductName(query: String, page: Int): Resource<Query>
 
-    suspend fun getTips(): Resource<Tips>
+    suspend fun getTips(): Resource<List<Article>>
 
-    suspend fun getNews(): Resource<News>
+    suspend fun getNews(): Resource<List<Article>>
 
     suspend fun getDetails(id: Int): Resource<Details>
 }

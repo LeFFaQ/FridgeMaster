@@ -2,6 +2,7 @@ package ru.lffq.fmaster.feature_rskrf.domain.model.products
 
 import com.google.gson.annotations.SerializedName
 import ru.lffq.fmaster.feature_rskrf.data.remote.dto.products.ProductModel
+import ru.lffq.fmaster.feature_rskrf.domain.model.CriteriaRating
 
 //i don't care
 
