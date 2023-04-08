@@ -1,14 +1,17 @@
 package ru.lffq.fmaster.feature_rskrf.data.remote.dto.products
 
 
+import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 
+@Keep
 data class ProductModel(
     @SerializedName("message")
     val message: List<Any>,
     @SerializedName("response")
     val response: Response
 ) {
+    @Keep
     data class Response(
         @SerializedName("category_name")
         val categoryName: String,
@@ -45,6 +48,7 @@ data class ProductModel(
         @SerializedName("worth")
         val worth: List<String>
     ) {
+        @Keep
         data class CriteriaRating(
             @SerializedName("title")
             val title: String,
@@ -52,6 +56,7 @@ data class ProductModel(
             val value: Int
         )
 
+        @Keep
         data class ProductDocument(
             @SerializedName("file")
             val file: String,
@@ -59,6 +64,7 @@ data class ProductModel(
             val name: String
         )
 
+        @Keep
         data class ProductInfo(
             @SerializedName("info")
             val info: String,
@@ -66,6 +72,7 @@ data class ProductModel(
             val name: String
         )
 
+        @Keep
         data class Recommendation(
             @SerializedName("category_name")
             val categoryName: String,
@@ -86,6 +93,7 @@ data class ProductModel(
             @SerializedName("total_rating")
             val totalRating: Int
         ) {
+            @Keep
             data class CriteriaRating(
                 @SerializedName("title")
                 val title: String,
@@ -94,6 +102,7 @@ data class ProductModel(
             )
         }
 
+        @Keep
         data class Research(
             @SerializedName("date")
             val date: String,

@@ -1,14 +1,17 @@
 package ru.lffq.fmaster.feature_rskrf.data.remote.dto.news
 
 
+import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 
+@Keep
 data class DetailsModel(
     @SerializedName("message")
     val message: List<Any>,
     @SerializedName("response")
     val response: Response
 ) {
+    @Keep
     data class Response(
         @SerializedName("article_link")
         val articleLink: String,
@@ -35,6 +38,7 @@ data class DetailsModel(
         @SerializedName("total_comments")
         val totalComments: Int
     ) {
+        @Keep
         data class ContentBlock(
             @SerializedName("content")
             val content: String,
@@ -42,6 +46,7 @@ data class DetailsModel(
             val type: String
         )
 
+        @Keep
         data class Section(
             @SerializedName("id")
             val id: Int,

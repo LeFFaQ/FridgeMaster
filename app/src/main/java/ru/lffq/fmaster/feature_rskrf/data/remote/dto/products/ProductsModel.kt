@@ -1,14 +1,17 @@
 package ru.lffq.fmaster.feature_rskrf.data.remote.dto.products
 
 
+import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 
+@Keep
 data class ProductsModel(
     @SerializedName("response")
     val response: Response,
     @SerializedName("message")
     val message: List<Any>
 ) {
+    @Keep
     data class Response(
         @SerializedName("research")
         val research: Research,
@@ -21,6 +24,7 @@ data class ProductsModel(
         @SerializedName("products")
         val products: List<Product>
     ) {
+        @Keep
         data class Research(
             @SerializedName("id")
             val id: Int,
@@ -36,6 +40,7 @@ data class ProductsModel(
             val productGroupId: String
         )
 
+        @Keep
         data class AvailableSorting(
             @SerializedName("type")
             val type: String,
@@ -45,6 +50,7 @@ data class ProductsModel(
             val title: String
         )
 
+        @Keep
         data class CurrentSorting(
             @SerializedName("type")
             val type: String,
@@ -54,6 +60,7 @@ data class ProductsModel(
             val title: String
         )
 
+        @Keep
         data class Product(
             @SerializedName("id")
             val id: Int,
@@ -76,6 +83,7 @@ data class ProductsModel(
             @SerializedName("has_bad_quality_mark")
             val hasBadQualityMark: Boolean
         ) {
+            @Keep
             data class CriteriaRating(
                 @SerializedName("title")
                 val title: String,
