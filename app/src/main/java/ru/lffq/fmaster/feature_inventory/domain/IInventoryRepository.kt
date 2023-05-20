@@ -2,7 +2,7 @@ package ru.lffq.fmaster.feature_inventory.domain
 
 
 import kotlinx.coroutines.flow.Flow
-import ru.lffq.fmaster.feature_inventory.data.InventoryEntity
+import ru.lffq.fmaster.feature_inventory.data.inventory.InventoryEntity
 
 interface IInventoryRepository {
 

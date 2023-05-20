@@ -116,21 +116,23 @@ val Typography = Typography(
 @Preview
 @Composable
 fun FontsPreview() {
-    Column {
-        Text(text = "displayLarge", style = MaterialTheme.typography.displayLarge)
-        Text(text = "displayMedium", style = MaterialTheme.typography.displayMedium)
-        Text(text = "displaySmall", style = MaterialTheme.typography.displaySmall)
-        Text(text = "headlineLarge", style = MaterialTheme.typography.headlineLarge)
-        Text(text = "headlineMedium", style = MaterialTheme.typography.headlineMedium)
-        Text(text = "headlineSmall", style = MaterialTheme.typography.headlineSmall)
-        Text(text = "titleLarge", style = MaterialTheme.typography.titleLarge)
-        Text(text = "titleMedium", style = MaterialTheme.typography.titleMedium)
-        Text(text = "titleSmall", style = MaterialTheme.typography.titleSmall)
-        Text(text = "labelLarge", style = MaterialTheme.typography.labelLarge)
-        Text(text = "labelMedium", style = MaterialTheme.typography.labelMedium)
-        Text(text = "labelSmall", style = MaterialTheme.typography.labelSmall)
-        Text(text = "bodyLarge", style = MaterialTheme.typography.bodyLarge)
-        Text(text = "bodyMedium", style = MaterialTheme.typography.bodyMedium)
-        Text(text = "bodySmall", style = MaterialTheme.typography.bodySmall)
+    FridgeMasterTheme {
+        Column {
+            Text(text = "displayLarge", style = MaterialTheme.typography.displayLarge)
+            Text(text = "displayMedium", style = MaterialTheme.typography.displayMedium)
+            Text(text = "displaySmall", style = MaterialTheme.typography.displaySmall)
+            Text(text = "headlineLarge", style = MaterialTheme.typography.headlineLarge)
+            Text(text = "headlineMedium", style = MaterialTheme.typography.headlineMedium)
+            Text(text = "headlineSmall", style = MaterialTheme.typography.headlineSmall)
+            Text(text = "titleLarge", style = MaterialTheme.typography.titleLarge)
+            Text(text = "titleMedium", style = MaterialTheme.typography.titleMedium)
+            Text(text = "titleSmall", style = MaterialTheme.typography.titleSmall)
+            Text(text = "labelLarge", style = MaterialTheme.typography.labelLarge)
+            Text(text = "labelMedium", style = MaterialTheme.typography.labelMedium)
+            Text(text = "labelSmall", style = MaterialTheme.typography.labelSmall)
+            Text(text = "bodyLarge", style = MaterialTheme.typography.bodyLarge)
+            Text(text = "bodyMedium", style = MaterialTheme.typography.bodyMedium)
+            Text(text = "bodySmall", style = MaterialTheme.typography.bodySmall)
+        }
     }
 }

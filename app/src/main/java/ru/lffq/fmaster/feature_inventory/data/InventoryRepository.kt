@@ -1,6 +1,8 @@
 package ru.lffq.fmaster.feature_inventory.data
 
 import kotlinx.coroutines.flow.Flow
+import ru.lffq.fmaster.feature_inventory.data.inventory.InventoryDao
+import ru.lffq.fmaster.feature_inventory.data.inventory.InventoryEntity
 import ru.lffq.fmaster.feature_inventory.domain.IInventoryRepository
 
 class InventoryRepository(private val dao: InventoryDao) : IInventoryRepository {

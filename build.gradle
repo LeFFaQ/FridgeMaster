@@ -11,7 +11,7 @@ buildscript {
         coroutines_version = '1.6.4'
 
         retrofit_version = '2.9.0'
-        okhttp = '4.7.2'
+        okhttp = '4.10.0'
         kotlin_version = '1.8.10'
 
         room_version = "2.5.0"
@@ -19,7 +19,8 @@ buildscript {
     dependencies {
         classpath "com.google.dagger:hilt-android-gradle-plugin:$hilt_version"
         classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.0'
-        classpath 'com.android.tools.build:gradle:7.4.1'
+        classpath 'com.android.tools.build:gradle:8.0.0'
+
     }
     repositories {
         mavenCentral()

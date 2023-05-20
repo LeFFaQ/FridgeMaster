@@ -1,3 +1,40 @@
 <resources>
-    <string name="app_name">FridgeMaster</string>
+    <string name="app_name" translatable="false">FridgeMaster</string>
+    <string name="not_working">Not implemented</string>
+    <string name="feed_title">Feed</string>
+    <string name="inventory_title">Inventory</string>
+    <string name="profile_title">Profile</string>
+    <string name="addinv_title">Add</string>
+    <string name="detail_title">Details</string>
+    <string name="search_title">Search</string>
+    <string name="catalog_title">Catalog</string>
+    <string name="profile_register_button">Authorize</string>
+    <string name="inventory_nothing_to_show">There\'s nothing yet...</string>
+    <string name="inventory_title_MY">Yours</string>
+    <string name="inventory_title_CART">Cart</string>
+    <string name="search_products_title">Search in products...</string>
+    <string name="search_dishes_title">Search in recipes...</string>
+    <string name="feed_suggestion_product">Visit the product catalog</string>
+    <string name="feed_suggestion_product_description">We\'re sure to find something for you</string>
+    <string name="feed_suggestion_recipe">Show list of recipes</string>
+    <string name="feed_suggestion_recipe_description">It\'s cooking time!</string>
+    <string name="feed_article_card_title_placeholder">text you weren\'t supposed to see</string>
+    <string name="feed_article_card_author_placeholder">Why have you seen this?</string>
+    <string name="feed_article_card_date_placeholder" translatable="false">09-11-2004T00:00:00</string>
+    <string name="network_status_lost">Internet connection was lost</string>
+    <string name="network_status_unavaliable">No connection with internet</string>
+    <string name="detail_chip_verypopular">Popular</string>
+    <string name="detail_chip_cheap">Cheap</string>
+    <string name="detail_chip_healty">Healty</string>
+    <string name="detail_chip_vegatarian">Vegetarian</string>
+    <string name="detail_chip_glutenfree">Gluten free</string>
+    <string name="detail_chip_dairyfree">Dairy free</string>
+    <string name="inventory_fruit_title">Fruits</string>
+    <string name="inventory_vegetable_title">Vegetables</string>
+    <string name="inventory_drink_title">Drinks</string>
+    <string name="inventory_meat_title">Meat</string>
+    <string name="inventory_fish_title">Seafood</string>
+    <string name="inventory_milk_title">Dairy</string>
+    <string name="navigation_add_to_inventory">Add to</string>
+    <string name="navigation_scan_barcode">Scan</string>
 </resources>

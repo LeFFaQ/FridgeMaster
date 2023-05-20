@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="not_working">Не реализовано</string>
+    <string name="feed_title">Лента</string>
+    <string name="profile_title">Профиль</string>
+    <string name="inventory_title">Инвентарь</string>
+    <string name="profile_register_button">Авторизироваться</string>
+    <string name="inventory_nothing_to_show">Здесь пока пусто...</string>
+    <string name="inventory_title_MY">Моё</string>
+    <string name="inventory_title_CART">Корзина</string>
+    <string name="search_products_title">Поиск по продуктам...</string>
+    <string name="search_dishes_title">Поиск по рецептам...</string>
+    <string name="feed_suggestion_product">Перейти в каталог продуктов</string>
+    <string name="feed_suggestion_product_description">Мы обязательно что-нибудь найдем для вас</string>
+    <string name="feed_suggestion_recipe">Просмотреть список рецептов</string>
+    <string name="feed_suggestion_recipe_description">Время показать свои кулинарные навыки!</string>
+    <string name="feed_article_card_title_placeholder">Текст, который вы не должны были увидеть</string>
+    <string name="feed_article_card_author_placeholder">Почему вы это видели?</string>
+    <string name="addinv_title">Добавить</string>
+    <string name="detail_title">Детали</string>
+    <string name="search_title">Поиск</string>
+    <string name="catalog_title">Каталог</string>
+    <string name="network_status_lost">Соединение было потеряно</string>
+    <string name="network_status_unavaliable">Отсутствует соединение с интернетом</string>
+    <string name="detail_chip_verypopular">Популярное</string>
+    <string name="detail_chip_cheap">Дешевое</string>
+    <string name="detail_chip_healty">Здоровое</string>
+    <string name="detail_chip_vegatarian">Вегатерианское</string>
+    <string name="detail_chip_glutenfree">Без глютена</string>
+    <string name="detail_chip_dairyfree">Безмолочное</string>
+    <string name="inventory_fruit_title">Фрукты</string>
+    <string name="inventory_vegetable_title">Овощи</string>
+    <string name="inventory_drink_title">Напитки</string>
+    <string name="inventory_meat_title">Мясо</string>
+    <string name="inventory_fish_title">Морепродукты</string>
+    <string name="inventory_milk_title">Молокосодержащие</string>
+    <string name="navigation_add_to_inventory">Добавить</string>
+    <string name="navigation_scan_barcode">Сканировать</string>
+</resources>

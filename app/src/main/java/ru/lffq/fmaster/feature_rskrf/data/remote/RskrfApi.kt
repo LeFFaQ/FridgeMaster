@@ -1,5 +1,6 @@
 package ru.lffq.fmaster.feature_rskrf.data.remote
 
+import androidx.annotation.Keep
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -9,6 +10,7 @@ import ru.lffq.fmaster.feature_rskrf.data.remote.dto.news.NewsModel
 import ru.lffq.fmaster.feature_rskrf.data.remote.dto.news.TipsModel
 import ru.lffq.fmaster.feature_rskrf.data.remote.dto.products.*
 
+@Keep
 interface RskrfApi {
 
     // How to:

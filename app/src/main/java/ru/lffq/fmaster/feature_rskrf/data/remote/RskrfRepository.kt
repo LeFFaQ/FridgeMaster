@@ -7,13 +7,22 @@ import ru.lffq.fmaster.feature_rskrf.domain.model.news.Article
 import ru.lffq.fmaster.feature_rskrf.domain.model.news.Details
 import ru.lffq.fmaster.feature_rskrf.domain.model.news.toArticle
 import ru.lffq.fmaster.feature_rskrf.domain.model.news.toDetails
-import ru.lffq.fmaster.feature_rskrf.domain.model.products.*
+import ru.lffq.fmaster.feature_rskrf.domain.model.products.Product
+import ru.lffq.fmaster.feature_rskrf.domain.model.products.ProductGroups
+import ru.lffq.fmaster.feature_rskrf.domain.model.products.Products
+import ru.lffq.fmaster.feature_rskrf.domain.model.products.Query
+import ru.lffq.fmaster.feature_rskrf.domain.model.products.Subcategory
+import ru.lffq.fmaster.feature_rskrf.domain.model.products.toProduct
+import ru.lffq.fmaster.feature_rskrf.domain.model.products.toProductGroups
+import ru.lffq.fmaster.feature_rskrf.domain.model.products.toProducts
+import ru.lffq.fmaster.feature_rskrf.domain.model.products.toQuery
+import ru.lffq.fmaster.feature_rskrf.domain.model.products.toSubcategories
 
 
 class RskrfRepository(
     private val api: RskrfApi
 ) : IRskrfRepository {
-    override suspend fun getSubCategories(category: AllowedCategories): Resource<Subcategories> {
+    override suspend fun getSubCategories(category: AllowedCategories): Resource<List<Subcategory>> {
         return try {
             Resource.Success(
                 data = api.getSubcategory(category.categoryId).toSubcategories()

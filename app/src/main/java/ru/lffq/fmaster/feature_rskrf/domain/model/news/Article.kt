@@ -36,7 +36,7 @@ fun NewsModel.toArticle(): List<Article> {
 }
 
 // тот же самый костыль, что изложен выше
-// если что он нужен чтобы избавиться от двух практически
+// если что он нужен, чтобы избавиться от двух практически
 // идентичных классов Tips и News
 fun TipsModel.toArticle(): List<Article> {
     return this.response.articles.map {
