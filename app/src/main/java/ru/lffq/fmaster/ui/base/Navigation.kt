@@ -49,7 +49,7 @@ fun AppNavigation(
     displayFeatures: List<DisplayFeature>
 ) {
     val navController =
-        rememberNavController(startDestination = if (isOpenedEarlier) Screen.Main else Screen.SingIn)
+        rememberNavController(startDestination = if (isOpenedEarlier) Screen.Main else Screen.Preferences)
 
     Surface(Modifier.fillMaxSize()) {
         NavHost(navController) {
@@ -58,7 +58,7 @@ fun AppNavigation(
                 is Screen.SingUp -> {}
                 is Screen.Preferences -> {
                     //val vm = hiltViewModel<>()
-                    Preferences()
+                    Preferences(navController)
                 }
 
                 is Screen.Caching -> {}

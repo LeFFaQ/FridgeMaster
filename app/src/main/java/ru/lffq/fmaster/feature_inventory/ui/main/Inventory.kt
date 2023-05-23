@@ -30,6 +30,7 @@ import ru.lffq.fmaster.feature_fakedata.Food
 import ru.lffq.fmaster.feature_fakedata.FoodInFridge
 import ru.lffq.fmaster.feature_inventory.data.cart.CartEntity
 import ru.lffq.fmaster.feature_inventory.data.inventory.InventoryEntity
+import ru.lffq.fmaster.feature_inventory.ui.add.AddLayout
 import ru.lffq.fmaster.ui.components.WidthClass
 
 
@@ -40,29 +41,52 @@ fun Inventory(
     pagerState: PagerState,
     widthClass: WidthClass,
 ) {
+    val context = LocalContext.current
+
     val layout by vm.layout
 
     val inventoryEntities: List<InventoryEntity> by vm.inventoryEntities.collectAsState()
     val cartEntities: List<CartEntity> by vm.cartEntities.collectAsState()
 
+    Box(Modifier.fillMaxSize()) {
+        Scaffold(
+            floatingActionButton = {
+                InventoryFAB(
+                    pagerState = pagerState,
+                    onAddClick = { vm.onEvent(InventoryEvent.GoToAdd) },
+                    onGoCatalogClick = {
+                        Toast.makeText(
+                            context,
+                            context.getText(R.string.not_working),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                )
+            }
+        ) {
+            Box(
+                Modifier
+                    .fillMaxWidth()
+                    .padding(it)
+            ) {
+                MainLayout(
+                    pagerState,
+                    inventoryEntities,
+                    cartEntities,
+                    modifier = Modifier.fillMaxSize(),
+                    widthClass = widthClass
+                )
+            }
+        }
 
-    when (layout) {
-        is InventoryLayout.Main -> {
-            MainLayout(
-                pagerState,
-                inventoryEntities,
-                cartEntities,
-                modifier = Modifier.fillMaxSize(),
-                widthClass = widthClass
+        if (layout is InventoryLayout.Add) {
+            AddLayout(
+                onAddClick = { vm.onEvent(InventoryEvent.AddToFakeFood(it)) },
+                onBackClick = { vm.onEvent(InventoryEvent.ClearContent) }
             )
         }
-
-        is InventoryLayout.Add -> {
-
-        }
-
-        else -> {}
     }
+
 
 
 }
@@ -94,9 +118,6 @@ fun MainLayout(
 
         // FIXME: refactor this shit
         if (it == 0) {
-            //EmptyChecker(entities = inventory) {
-
-
             LazyVerticalGrid(
                 columns = GridCells.Fixed(spamCount),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -119,8 +140,6 @@ fun MainLayout(
                     }
                 }
             }
-
-            //}
         } else if (it == 1) {
             EmptyChecker(entities = cart) {
                 LazyColumn() {
@@ -137,7 +156,6 @@ fun ProductCard(product: Food) {
     val context = LocalContext.current
 
     val painter = rememberAsyncImagePainter(model = product.image)
-
 
     ElevatedCard(Modifier.fillMaxWidth()) {
         Image(
@@ -180,7 +198,7 @@ fun ProductCard(product: Food) {
                     },
                     content = { Icon(Icons.Default.Add, contentDescription = null) })
 
-                Text(text = "${product.amount} ${product.amountMeasure}")
+                Text(text = product.amount.toString() + " " + stringResource(id = product.amountMeasure.title))
 
                 FilledTonalIconButton(
                     modifier = Modifier.size(36.dp),

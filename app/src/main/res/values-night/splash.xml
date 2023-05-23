@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.FridgeMaster.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">#ff5e1700</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_app_icon</item>
+        <item name="postSplashScreenTheme">@style/Theme.FridgeMaster</item>
+    </style>
+</resources>

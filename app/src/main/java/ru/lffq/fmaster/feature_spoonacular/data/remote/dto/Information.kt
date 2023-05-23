@@ -3,6 +3,7 @@ package ru.lffq.fmaster.feature_spoonacular.data.remote.dto
 
 import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
+import ru.lffq.fmaster.feature_feed.domain.GenericDetailContent
 
 @Keep
 data class Information(
@@ -80,7 +81,7 @@ data class Information(
     val whole30: Boolean? = null,
     @SerializedName("winePairing")
     val winePairing: WinePairing? = null
-) {
+) : GenericDetailContent {
     @Keep
     data class ExtendedIngredient(
         @SerializedName("aisle")

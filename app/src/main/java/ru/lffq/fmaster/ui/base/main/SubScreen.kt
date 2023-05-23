@@ -8,20 +8,13 @@ import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
 import androidx.window.layout.DisplayFeature
 import kotlinx.coroutines.channels.consumeEach
 import ru.lffq.fmaster.R
-import ru.lffq.fmaster.feature_detail.ui.Detail
-import ru.lffq.fmaster.feature_detail.ui.DetailType
-import ru.lffq.fmaster.feature_detail.ui.DetailViewModel
 import ru.lffq.fmaster.feature_feed.ui.feed.Feed
 import ru.lffq.fmaster.feature_feed.ui.feed.FeedViewModel
 import ru.lffq.fmaster.feature_inventory.ui.Inventory
@@ -69,7 +62,7 @@ fun MainNavigation(
     displayFeatures: List<DisplayFeature>
 ) {
 
-    NavHost(navController, startDestination = MainSubScreen.Inventory.destination) {
+    NavHost(navController, startDestination = MainSubScreen.Feed.destination) {
         composable(route = MainSubScreen.Feed.destination) {
             val vm = hiltViewModel<FeedViewModel>()
 
@@ -95,24 +88,6 @@ fun MainNavigation(
             val vm = hiltViewModel<ProfileViewModel>()
             Profile(vm)
             // Add VM
-        }
-        composable(
-            MainSubScreen.Detail.destination,
-            arguments = listOf(
-                navArgument("type", builder = { type = NavType.StringType }),
-                navArgument("id", builder = { type = NavType.IntType }),
-            )
-        ) {
-            val vm = hiltViewModel<DetailViewModel>(it)
-            val recipe by vm.information.collectAsState()
-            recipe?.let {
-                Detail(type = DetailType.Recipe, recipe!!)
-            }
-            val details by vm.article.collectAsState()
-            details?.let { _details ->
-                Detail(_details)
-            }
-
         }
         composable(MainSubScreen.AddToInventory.destination) {
 

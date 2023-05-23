@@ -36,4 +36,14 @@
     <string name="inventory_milk_title">Молокосодержащие</string>
     <string name="navigation_add_to_inventory">Добавить</string>
     <string name="navigation_scan_barcode">Сканировать</string>
+    <string name="search_placeholder">Поиск...</string>
+    <string name="feed_no_content_text">Здесь будет выбранный контент</string>
+    <string name="news_header">Новости</string>
+    <string name="inventory_measure_kg">кг.</string>
+    <string name="inventory_measure_gr">гр.</string>
+    <string name="inventory_measure_liter">литр.</string>
+    <string name="inventory_measure_pcs">шт.</string>
+    <string name="inventory_foodtype_title">Тип</string>
+    <string name="inventory_add_amount_title">Количество</string>
+    <string name="inventory_add_name_title">Название</string>
 </resources>

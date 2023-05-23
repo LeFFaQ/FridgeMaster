@@ -128,7 +128,7 @@ fun InventoryTopBar(
     pagerState: PagerState,
     onTabClick: (i: Int) -> Unit,
 ) {
-    val types = listOf(InventoryType.Me(), InventoryType.Cart())
+    val types = listOf(InventoryType.Me, InventoryType.Cart)
     val currentTab = pagerState.currentPage
 
     Column(modifier = Modifier.fillMaxWidth()) {
@@ -143,10 +143,6 @@ fun InventoryTopBar(
                     selected = false,
                     onClick = {
                         onTabClick(i)
-//                    {
-//                        coroutineScope.launch {
-//                            pagerState.animateScrollToPage(nextTab)
-//                        }
                     },
                     text = {
                         Text(
@@ -163,13 +159,17 @@ fun InventoryTopBar(
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun InventoryFAB(pagerState: PagerState, onAddClick: () -> Unit, onGoCatalogClick: () -> Unit) {
-    FloatingActionButton(onClick = {
-        when (pagerState.currentPage) {
-            0 -> onAddClick()
-            1 -> onGoCatalogClick()
-        }
+    FloatingActionButton(
+        onClick = {
+            when (pagerState.currentPage) {
+                0 -> onAddClick()
+                1 -> onGoCatalogClick()
+            }
 
-    }) {
+        },
+        containerColor = MaterialTheme.colorScheme.tertiary,
+        contentColor = MaterialTheme.colorScheme.onTertiary,
+    ) {
         Crossfade(targetState = pagerState.currentPage) {
             when (it) {
                 0 -> Icon(Icons.Default.Add, contentDescription = null)

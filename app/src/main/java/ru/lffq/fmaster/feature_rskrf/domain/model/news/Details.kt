@@ -1,5 +1,6 @@
 package ru.lffq.fmaster.feature_rskrf.domain.model.news
 
+import ru.lffq.fmaster.feature_feed.domain.GenericDetailContent
 import ru.lffq.fmaster.feature_rskrf.data.remote.dto.news.DetailsModel
 
 data class Details(
@@ -13,7 +14,7 @@ data class Details(
     val section: Section,
     val thumbnail: String,
     val title: String,
-) {
+) : GenericDetailContent {
     data class ContentBlock(
         val content: String,
         val type: String

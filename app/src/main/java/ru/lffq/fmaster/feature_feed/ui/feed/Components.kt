@@ -25,6 +25,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.window.layout.DisplayFeature
 import coil.compose.AsyncImage
@@ -42,14 +43,20 @@ import ru.lffq.fmaster.feature_spoonacular.data.remote.dto.Random
 @Composable
 fun FeedTwoPane(
     recipe: Resource<Random.Recipe>,
+    onRecipeClick: (Int) -> Unit,
     articles: List<Article>,
     sections: List<Article.Section>,
+    onArticleClick: (Int) -> Unit,
     searchValue: String,
     onSearchValueChange: (String) -> Unit,
     onSearch: (String) -> Unit,
     onActiveChange: (Boolean) -> Unit,
     displayFeatures: List<DisplayFeature>,
-    modifier: Modifier
+    hasContent: Boolean,
+    content: @Composable () -> Unit,
+    paneModifier: Modifier,
+    twoPaneModifier: Modifier,
+    suggestionImageSize: Dp
 ) {
     val strategy = remember { HorizontalTwoPaneStrategy(0.45f, 8.dp) }
 
@@ -57,30 +64,38 @@ fun FeedTwoPane(
         first = {
             FeedOnePane(
                 recipe = recipe,
+                onRecipeClick = onRecipeClick,
                 articles = articles,
                 sections = sections,
+                onArticleClick = onArticleClick,
                 searchValue = searchValue,
                 onSearchValueChange = onSearchValueChange,
                 onSearch = onSearch,
                 onActiveChange = onActiveChange,
+                modifier = paneModifier,
+                suggestionImageSize = suggestionImageSize
             )
         },
-        second = { /*TODO*/ },
+        second = content,
         strategy = strategy,
         displayFeatures = displayFeatures,
-        modifier = modifier.padding(24.dp)
+        modifier = twoPaneModifier.padding(24.dp)
     )
 }
 
 @Composable
 fun FeedOnePane(
     recipe: Resource<Random.Recipe>,
+    onRecipeClick: (Int) -> Unit,
     articles: List<Article>,
     sections: List<Article.Section>,
+    onArticleClick: (Int) -> Unit,
     searchValue: String,
     onSearchValueChange: (String) -> Unit,
     onSearch: (String) -> Unit,
-    onActiveChange: (Boolean) -> Unit
+    onActiveChange: (Boolean) -> Unit,
+    suggestionImageSize: Dp,
+    modifier: Modifier,
 ) {
     val listState = rememberLazyListState()
 
@@ -92,7 +107,7 @@ fun FeedOnePane(
             onSearch = onSearch,
             onActiveChange = onActiveChange,
             listState = listState,
-            modifier = PADDING_CONSTANT
+            modifier = modifier
                 .fillMaxWidth()
                 .padding(top = 8.dp)
                 .align(Alignment.TopCenter)
@@ -106,18 +121,17 @@ fun FeedOnePane(
             item {
                 addSuggestion(
                     recipe = recipe,
-                    modifier = PADDING_CONSTANT.padding(top = 72.dp),
-                    onClick = { })
+                    modifier = modifier.padding(top = 72.dp),
+                    onClick = onRecipeClick,
+                    imageSize = suggestionImageSize
+                )
             }
             item {
-                addNewsHeader(sections = sections, modifier = PADDING_CONSTANT)
+                Spacer(modifier = Modifier.height(16.dp))
+                addNewsHeader(sections = sections, modifier = modifier)
             }
-            addNews(articles = articles, {}, {})
+            addNews(articles = articles, onArticleClick, { })
         }
-    }
-    Box {
-
-
     }
 }
 
@@ -167,13 +181,12 @@ fun FeedSearchBar(
                     Icon(Icons.Default.ArrowBack, contentDescription = null)
                 }
             } else Icon(Icons.Default.Search, contentDescription = null)
-
         },
+        placeholder = { Text(text = stringResource(id = R.string.search_title)) },
+        content = content,
         modifier = modifier
             .shadow(elevation, SearchBarDefaults.dockedShape)
-    ) {
-
-    }
+    )
 }
 
 @Composable
@@ -343,10 +356,19 @@ fun LazyItemScope.addBanner(canBeShown: Boolean, modifier: Modifier) {
 @OptIn(ExperimentalLayoutApi::class)
 @SuppressLint("ComposableNaming")
 @Composable
-fun addSuggestion(recipe: Resource<Random.Recipe>, modifier: Modifier, onClick: () -> Unit) {
+fun addSuggestion(
+    recipe: Resource<Random.Recipe>,
+    modifier: Modifier,
+    onClick: (Int) -> Unit,
+    imageSize: Dp,
+) {
+
+    val data = recipe.data
+    val (imageLoaded, onImageLoaded) = remember {
+        mutableStateOf(false)
+    }
 
     val chips = remember(recipe) {
-
         if (recipe is Resource.Success) {
             provideDetailChips(
                 healthy = recipe.data?.veryHealthy!!,
@@ -365,7 +387,7 @@ fun addSuggestion(recipe: Resource<Random.Recipe>, modifier: Modifier, onClick: 
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .clickable(onClick = onClick),
+            .clickable(onClick = { onClick(data?.id ?: 0) }),
     ) {
         Row(
             Modifier
@@ -373,38 +395,83 @@ fun addSuggestion(recipe: Resource<Random.Recipe>, modifier: Modifier, onClick: 
         ) {
 
             AsyncImage(
-                model = recipe.data?.image,
+                model = data?.image ?: "",
                 contentDescription = null,
                 contentScale = ContentScale.FillHeight,
+                onSuccess = { onImageLoaded(true) },
                 modifier = Modifier
-                    .size(124.dp)
+                    .size(imageSize)
                     .clip(CardDefaults.shape)
                     .placeholder(
-                        visible = recipe is Resource.Loading,
+                        visible = (recipe is Resource.Loading) && !imageLoaded,
                         shape = CardDefaults.shape,
-                        color = MaterialTheme.colorScheme.secondary
+                        color = MaterialTheme.colorScheme.secondary,
+                        highlight = PlaceholderHighlight.fade(MaterialTheme.colorScheme.secondaryContainer)
                     )
 
             )
-            Column(Modifier.padding(8.dp)) {
-                recipe.data?.title?.let {
-                    Text(
-                        text = it,
-                        style = MaterialTheme.typography.titleMedium
+            Column(
+                Modifier
+                    .height(124.dp)
+                    .padding(8.dp), verticalArrangement = Arrangement.Center
+            ) {
+
+                Text(
+                    text = data?.title ?: "very long text for placeholder i dont know",
+                    style = MaterialTheme.typography.titleMedium,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier.placeholder(
+                        visible = (recipe is Resource.Loading) && !imageLoaded,
+                        shape = CardDefaults.shape,
+                        color = MaterialTheme.colorScheme.secondary,
+                        highlight = PlaceholderHighlight.fade(MaterialTheme.colorScheme.secondaryContainer)
                     )
-                }
+                )
+
                 LazyRow {
-                    chips?.forEach { (detail, boolean) ->
-                        if (boolean) {
+                    if (chips == null) {
+                        (1..3).forEach {
                             item {
-                                SuggestionChip(title = detail.title, icon = detail.icon)
-                                if (detail != chips.keys.last()) {
-                                    Spacer(Modifier.width(4.dp))
+                                ElevatedAssistChip(
+                                    onClick = { /*TODO*/ },
+                                    label = {
+                                        Text(
+                                            "111".repeat(it), modifier = Modifier.placeholder(
+                                                visible = (recipe is Resource.Loading) && !imageLoaded,
+                                                shape = CardDefaults.shape,
+                                                color = MaterialTheme.colorScheme.secondary,
+                                                highlight = PlaceholderHighlight.fade(MaterialTheme.colorScheme.secondaryContainer)
+                                            )
+                                        )
+                                    }
+                                )
+                                Spacer(modifier = Modifier.width(4.dp))
+                            }
+                        }
+                    } else {
+                        chips.forEach { (detail, boolean) ->
+                            if (boolean) {
+                                item {
+                                    SuggestionChip(title = detail.title, icon = detail.icon)
+                                    if (detail != chips.keys.last()) {
+                                        Spacer(Modifier.width(4.dp))
+                                    }
                                 }
                             }
                         }
                     }
                 }
+
+                Text(
+                    text = "${recipe.data?.readyInMinutes ?: "78"} Мин.",
+                    modifier = Modifier.placeholder(
+                        visible = (recipe is Resource.Loading) && !imageLoaded,
+                        shape = CardDefaults.shape,
+                        color = MaterialTheme.colorScheme.secondary,
+                        highlight = PlaceholderHighlight.fade(MaterialTheme.colorScheme.secondaryContainer)
+                    )
+                )
             }
         }
     }
@@ -436,7 +503,11 @@ fun SuggestionChip(@StringRes title: Int, @DrawableRes icon: Int) {
 @Composable
 fun addNewsHeader(sections: List<Article.Section>, modifier: Modifier) {
 
-    Text(text = "Новости", fontWeight = FontWeight.Bold, modifier = modifier.fillMaxWidth())
+    Text(
+        text = stringResource(id = R.string.news_header),
+        style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
+        modifier = modifier.fillMaxWidth()
+    )
     if (sections.isNotEmpty()) {
         Column(modifier) {
             ChipsRow(list = sections)

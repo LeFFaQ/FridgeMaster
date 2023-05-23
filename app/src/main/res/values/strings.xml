@@ -37,4 +37,14 @@
     <string name="inventory_milk_title">Dairy</string>
     <string name="navigation_add_to_inventory">Add to</string>
     <string name="navigation_scan_barcode">Scan</string>
+    <string name="search_placeholder">Type something...</string>
+    <string name="feed_no_content_text">There will be highlighted content here</string>
+    <string name="news_header">News</string>
+    <string name="inventory_measure_kg">kg.</string>
+    <string name="inventory_measure_gr">gr.</string>
+    <string name="inventory_measure_liter">l</string>
+    <string name="inventory_measure_pcs">pcs.</string>
+    <string name="inventory_foodtype_title">Type</string>
+    <string name="inventory_add_amount_title">Amount</string>
+    <string name="inventory_add_name_title">Name</string>
 </resources>

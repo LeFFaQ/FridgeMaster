@@ -11,6 +11,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import ru.lffq.fmaster.R
+import ru.lffq.fmaster.feature_fakedata.Food
+import ru.lffq.fmaster.feature_fakedata.FoodInFridge
 import ru.lffq.fmaster.feature_inventory.data.cart.CartEntity
 import ru.lffq.fmaster.feature_inventory.data.inventory.InventoryEntity
 import ru.lffq.fmaster.feature_inventory.domain.usecase.InventoryUseCases
@@ -44,51 +46,29 @@ class InventoryViewModel @Inject constructor(
         }
     }
 
-//    fun onEvent(event: InventoryEvent) {
-//        when (event) {
-////            is InventoryEvent.OnAddButtonClicked -> {
-////                _layout.value = InventoryLayout.AddLayout(
-////                    onCloseLayout = { onEvent(InventoryEvent.OnCloseButtonClicked) }
-////                )
-////            }
-//
-//            is InventoryEvent.OnEntityAdded -> {
-//                viewModelScope.launch {
-//                    useCase.insertEntity(event.entity)
-//                    onEvent(InventoryEvent.OnCloseButtonClicked)
-//                }
-//            }
-//
-////            is InventoryEvent.OnEntityDetailsShow -> {
-////                _layout.value = InventoryLayout.DetailsLayout(
-////                    entity = event.entity,
-////                    onCloseLayout = { onEvent(InventoryEvent.OnCloseButtonClicked) },
-////                    onDeleteEntity = { onEvent(InventoryEvent.OnEntityDeleteClick(event.entity)) },
-////                )
-////            }
-//            is InventoryEvent.OnEntityDeleteClick -> {
-//                viewModelScope.launch {
-//                    useCase.deleteEntity(event.entity)
-//                }
-//                onEvent(InventoryEvent.OnCloseButtonClicked)
-//            }
-////            inventoryevent.onclosebuttonclicked -> {
-////                _layout.value = inventorylayout.mainlayout
-////            }
-//
-//            else -> {}
-//        }
-//    }
+    fun onEvent(event: InventoryEvent) {
+        when (event) {
+            is InventoryEvent.ClearContent -> {
+                _layout.value = InventoryLayout.Main
+            }
+
+            is InventoryEvent.AddToFakeFood -> {
+                FoodInFridge.foods.add(event.food); onEvent(InventoryEvent.ClearContent)
+            }
+
+            is InventoryEvent.GoToAdd -> {
+                _layout.value = InventoryLayout.Add
+            }
+
+            else -> {}
+        }
+    }
 }
 
 sealed class InventoryEvent {
-
-
-    object OnAddButtonClicked : InventoryEvent()
-    object OnCloseButtonClicked : InventoryEvent()
-    data class OnEntityAdded(val entity: InventoryEntity) : InventoryEvent()
-    data class OnEntityDetailsShow(val entity: InventoryEntity) : InventoryEvent()
-    data class OnEntityDeleteClick(val entity: InventoryEntity) : InventoryEvent()
+    object ClearContent : InventoryEvent()
+    object GoToAdd : InventoryEvent()
+    data class AddToFakeFood(val food: Food) : InventoryEvent()
 }
 
 sealed class InventoryLayout(val title: String, val destination: String) {
@@ -98,7 +78,7 @@ sealed class InventoryLayout(val title: String, val destination: String) {
 }
 
 sealed class InventoryType(@StringRes val title: Int) {
-    class Me() : InventoryType(R.string.inventory_title_MY)
-    class Cart() : InventoryType(R.string.inventory_title_CART)
+    object Me : InventoryType(R.string.inventory_title_MY)
+    object Cart : InventoryType(R.string.inventory_title_CART)
 
 }

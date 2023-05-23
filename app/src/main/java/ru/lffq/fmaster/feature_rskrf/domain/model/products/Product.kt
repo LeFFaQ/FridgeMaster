@@ -1,6 +1,7 @@
 package ru.lffq.fmaster.feature_rskrf.domain.model.products
 
 import com.google.gson.annotations.SerializedName
+import ru.lffq.fmaster.feature_feed.domain.GenericDetailContent
 import ru.lffq.fmaster.feature_rskrf.data.remote.dto.products.ProductModel
 import ru.lffq.fmaster.feature_rskrf.domain.model.CriteriaRating
 
@@ -23,7 +24,7 @@ data class Product(
     val thumbnail: String,
     val totalRating: Int,
     val worth: List<String>
-) {
+) : GenericDetailContent {
     data class ProductDocument(
         val file: String,
         val name: String

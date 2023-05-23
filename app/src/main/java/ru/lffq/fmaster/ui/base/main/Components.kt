@@ -56,7 +56,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import ru.lffq.fmaster.R
 import ru.lffq.fmaster.common.connection.ConnectionObserver
-import ru.lffq.fmaster.feature_inventory.ui.InventoryFAB
 import ru.lffq.fmaster.feature_inventory.ui.InventoryTopBar
 import ru.lffq.fmaster.ui.components.WidthClass
 import ru.lffq.fmaster.ui.theme.elevation
@@ -132,16 +131,16 @@ fun MainScaffold(
             }
         },
         bottomBar = bottomNav ?: {},
-        floatingActionButton = {
-            when (currentRoute) {
-                MainSubScreen.Inventory.destination -> {
-                    InventoryFAB(
-                        pagerState = pagerState,
-                        onAddClick = { /*TODO*/ },
-                        onGoCatalogClick = { /*TODO*/ })
-                }
-            }
-        },
+//        floatingActionButton = {
+//            when (currentRoute) {
+//                MainSubScreen.Inventory.destination -> {
+//                    InventoryFAB(
+//                        pagerState = pagerState,
+//                        onAddClick = { () },
+//                        onGoCatalogClick = { /*TODO*/ })
+//                }
+//            }
+//        },
         snackbarHost = { SnackbarHost(hostState = snackBarState) }
     ) {
         Surface(
@@ -212,9 +211,18 @@ fun MainNavigationRail(
                     onClick = {
                         Toast.makeText(
                             context,
-                            context.getText(R.string.not_working),
-                            Toast.LENGTH_SHORT
+                            "Нажмите на плюсик справа внизу. Навигация напрямую на экран добавления не работает в связи с архитектурным решением",
+                            Toast.LENGTH_LONG
                         ).show()
+
+                        if (navBackStackEntry?.destination?.route != MainSubScreen.Inventory.destination)
+                            navController.navigate(MainSubScreen.Inventory.destination) {
+                                popUpTo(navController.graph.findStartDestination().id) {
+                                    saveState = true
+                                }
+                                launchSingleTop = true
+                                restoreState = true
+                            }
                     },
                     elevation = FloatingActionButtonDefaults.elevation(MaterialTheme.elevation.level1),
                     containerColor = MaterialTheme.colorScheme.tertiary,
@@ -300,9 +308,18 @@ fun MainPermanentDrawerContent(
                 onClick = {
                     Toast.makeText(
                         context,
-                        context.getText(R.string.not_working),
-                        Toast.LENGTH_SHORT
+                        "Нажмите на плюсик справа внизу. Навигация напрямую на экран добавления не работает в связи с архитектурным решением",
+                        Toast.LENGTH_LONG
                     ).show()
+                    if (navBackStackEntry?.destination?.route != MainSubScreen.Inventory.destination) {
+                        navController.navigate(MainSubScreen.Inventory.destination) {
+                            popUpTo(navController.graph.findStartDestination().id) {
+                                saveState = true
+                            }
+                            launchSingleTop = true
+                            restoreState = true
+                        }
+                    }
                 },
                 modifier = Modifier.fillMaxWidth()
             )

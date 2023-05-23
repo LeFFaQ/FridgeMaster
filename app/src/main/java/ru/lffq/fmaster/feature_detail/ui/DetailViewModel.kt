@@ -67,12 +67,10 @@ class DetailViewModel @Inject constructor(
     }
 
     private fun loadArticle() {
-
         viewModelScope.launch {
             if (_article.value != null) {
                 _article.value = null
             }
-
             getArticleUseCase(
                 onSuccess = {
                     _article.value = it
