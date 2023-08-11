@@ -168,7 +168,6 @@ fun FeedSearchBar(
     val elevation = remember {
         6.dp
     }
-
     DockedSearchBar(
         query = query,
         onQueryChange = onQueryChange,
